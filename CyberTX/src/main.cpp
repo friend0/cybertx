@@ -1,16 +1,50 @@
 #include <Arduino.h>
-#include <Tinyframe.h>
+#include <PulsePosition.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#include "state.h"
 
-void setup() {
-  // put your setup code here, to run once:
+#define MAX_PPM 2
+
+StateMachine state;
+
+unsigned long last_now = 0;
+const int interval_ms = 2000;
+int ledState = LOW;
+PulsePositionOutput *outputs[MAX_PPM];
+
+void setup()
+{
+  // Status LED
+  pinMode(LED_BUILTIN, OUTPUT);
+
+  // PPM Setup
+  for (int i = 0; i < MAX_PPM; i++)
+  {
+    PulsePositionOutput newOut;
+    outputs[i] = &newOut;
+  }
+
+  // Serial
   Serial.begin(9600);
+  Serial.println("Teensy 3.2: CyberTX PPM Proxy");
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-    Serial.println("Teensy 3.2: CyberTX PPM Proxy");
-    delay(1000);
+void loop()
+{
+  unsigned long now = millis();
+
+  while (!Serial.dtr())
+  {
+    if (now - last_now >= interval_ms)
+    {
+      last_now = now;
+      ledState ^= 1;
+      digitalWrite(LED_BUILTIN, ledState);
+    }
+  }
+
+  // Serial Connected
+  if (Serial.available()){
+
+  }
 }
