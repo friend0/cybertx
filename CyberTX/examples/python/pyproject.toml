@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "cybertx_server"
+version = "0.1.0"
+description = "cybertx python server example"
+authors = ["Ryan A Rodriguez <ryan.and.rodriguez@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyserial = "^3.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

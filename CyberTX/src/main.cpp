@@ -2,6 +2,7 @@
 #include <PulsePosition.h>
 
 #include "state.h"
+#include <pb.h>
 
 #define MAX_PPM 2
 
