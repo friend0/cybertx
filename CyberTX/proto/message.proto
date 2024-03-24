@@ -1,4 +1,5 @@
 syntax = "proto3";
+import "nanopb.proto";
 
 package cybertx.messages;
 
@@ -11,5 +12,5 @@ message PPMUpdate {
 
 message PPMUpdateAll {
     int32 line = 1;
-    repeated int32 channel_values = 2;
+    repeated int32 channel_values = 2 [(nanopb).max_count = 16];
 }
