@@ -3,13 +3,13 @@ syntax = "proto3";
 package cybertx.messages;
 
 message PPMUpdate {
-    optional int32 line = 1;
+    int32 line = 1;
     int32 channel = 2;
     int32 channel_value = 3;
 }
 
 
 message PPMUpdateAll {
-    optional int32 line = 1;
+    int32 line = 1;
     repeated int32 channel_values = 2;
 }
