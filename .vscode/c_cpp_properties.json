@@ -10,7 +10,7 @@
             "macFrameworkPath": [
                 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
             ],
-            "compilerPath": "/usr/bin/clang",
+            "compilerPath": "C:/Users/f0/scoop/apps/gcc/current/bin/gcc.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "macos-clang-x64"
@@ -18,16 +18,27 @@
         {
             "name": "Teensy",
             "includePath": [
-                "${workspaceFolder}/**"
+                "c:/Users/f0/Developer/cybertx/**",
+                "C:/Users/f0/.platformio/packages/framework-arduinoteensy/cores/teensy3"
             ],
             "defines": [],
             "macFrameworkPath": [
                 "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
             ],
-            "compilerPath": "/usr/local/bin/arm-none-eabi-gcc",
+            "compilerPath": "C:/Users/f0/scoop/apps/gcc/current/bin/gcc.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "gcc-arm"
+            "intelliSenseMode": "gcc-arm",
+            "compilerPathInCppPropertiesJson": "/usr/local/bin/arm-none-eabi-gcc",
+            "mergeConfigurations": false,
+            "browse": {
+                "path": [
+                    "c:/Users/f0/Developer/cybertx/**",
+                    "C:/Users/f0/.platformio/packages/framework-arduinoteensy/cores/teensy3",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
         }
     ],
     "version": 4
