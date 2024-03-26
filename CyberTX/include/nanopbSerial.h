@@ -1,0 +1,13 @@
+#ifndef NANO_PB_H
+#define NANO_PB_H
+
+#include "pb_encode.h"
+#include "pb_decode.h"
+#include <Arduino.h>
+
+pb_ostream_s pb_ostream_from_serial(Print& p);
+pb_istream_s pb_istream_from_serial(Stream& s, size_t msglen);
+
+#endif
+
+
