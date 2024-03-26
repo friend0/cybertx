@@ -8,21 +8,41 @@ newMessage = PPMUpdate()
 
 newMessage.channel = 1
 newMessage.channel_value = 1500
-print()
 
 # arduino.write(newMessage.SerializeToString())
-ppm = PPMUpdateAll(
-    line=2,
-    channel_values=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+ppm = PPMUpdateAll(line=1,
+                   channel_values=[
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                       1500,
+                   ])
 ser_str = ppm.SerializeToString()
-print(ser_str, ppm.ByteSize(), ser_str,
-      PPMUpdateAll().FromString(ser_str).channel_values)
+# print(ser_str, ppm.ByteSize(), ser_str,
+#       PPMUpdateAll().FromString(ser_str).channel_values)
 arduino.write(ser_str)
 
 time.sleep(.5)
 
-res = arduino.read(20)
-print(res)
+# num = arduino.read()
+# cv = arduino.read()
+# while(arduino.)
+# res = arduino.read(18)
+# print(f"num {int.from_bytes(num)}")
+# print(f"cv {int.from_bytes(cv)}")
+# print(res)
 # ppm = PPMUpdateAll()
 # print(ppm.ParseFromString(res))
 # print(ppm.channel_values)
