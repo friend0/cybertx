@@ -11,21 +11,20 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import nanopb_pb2 as nanopb__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tppm.proto\x12\x07\x63ybertx\x1a\x0cnanopb.proto\"B\n\nUpdateLine\x12\x0c\n\x04line\x18\x01 \x01(\x05\x12\x0f\n\x07\x63hannel\x18\x02 \x01(\x05\x12\x15\n\rchannel_value\x18\x03 \x01(\x05\"=\n\tUpdateAll\x12\x0c\n\x04line\x18\x01 \x01(\x05\x12\"\n\x0e\x63hannel_values\x18\x02 \x03(\x05\x42\n\x92?\x02\x10\x10\x92?\x02x\x01\x42\x14\n\x12\x63om.cybertx.protosb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tppm.proto\x12\x07\x63ybertx\"B\n\nUpdateLine\x12\x0c\n\x04line\x18\x01 \x01(\x05\x12\x0f\n\x07\x63hannel\x18\x02 \x01(\x05\x12\x15\n\rchannel_value\x18\x03 \x01(\x05\"5\n\tUpdateAll\x12\x0c\n\x04line\x18\x01 \x01(\x05\x12\x1a\n\x0e\x63hannel_values\x18\x10 \x03(\x05\x42\x02\x10\x01\x42%\n\x12\x63om.cybertx.protosB\rCyberTxProtosP\x01\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'ppm_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'\n\022com.cybertx.protos'
+  DESCRIPTOR._serialized_options = b'\n\022com.cybertx.protosB\rCyberTxProtosP\001'
   _UPDATEALL.fields_by_name['channel_values']._options = None
-  _UPDATEALL.fields_by_name['channel_values']._serialized_options = b'\222?\002\020\020\222?\002x\001'
-  _UPDATELINE._serialized_start=36
-  _UPDATELINE._serialized_end=102
-  _UPDATEALL._serialized_start=104
-  _UPDATEALL._serialized_end=165
+  _UPDATEALL.fields_by_name['channel_values']._serialized_options = b'\020\001'
+  _UPDATELINE._serialized_start=22
+  _UPDATELINE._serialized_end=88
+  _UPDATEALL._serialized_start=90
+  _UPDATEALL._serialized_end=143
 # @@protoc_insertion_point(module_scope)

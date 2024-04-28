@@ -5,7 +5,15 @@ from typing import ClassVar, Iterable, Optional
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class PPMUpdate(_message.Message):
+class UpdateAll(_message.Message):
+    __slots__ = ["channel_values", "line"]
+    CHANNEL_VALUES_FIELD_NUMBER: ClassVar[int]
+    LINE_FIELD_NUMBER: ClassVar[int]
+    channel_values: _containers.RepeatedScalarFieldContainer[int]
+    line: int
+    def __init__(self, line: Optional[int] = ..., channel_values: Optional[Iterable[int]] = ...) -> None: ...
+
+class UpdateLine(_message.Message):
     __slots__ = ["channel", "channel_value", "line"]
     CHANNEL_FIELD_NUMBER: ClassVar[int]
     CHANNEL_VALUE_FIELD_NUMBER: ClassVar[int]
@@ -14,11 +22,3 @@ class PPMUpdate(_message.Message):
     channel_value: int
     line: int
     def __init__(self, line: Optional[int] = ..., channel: Optional[int] = ..., channel_value: Optional[int] = ...) -> None: ...
-
-class PPMUpdateAll(_message.Message):
-    __slots__ = ["channel_values", "line"]
-    CHANNEL_VALUES_FIELD_NUMBER: ClassVar[int]
-    LINE_FIELD_NUMBER: ClassVar[int]
-    channel_values: _containers.RepeatedScalarFieldContainer[int]
-    line: int
-    def __init__(self, line: Optional[int] = ..., channel_values: Optional[Iterable[int]] = ...) -> None: ...

@@ -18,7 +18,8 @@ typedef struct _cybertx_UpdateLine {
 
 typedef struct _cybertx_UpdateAll {
     int32_t line;
-    pb_callback_t channel_values;
+    pb_size_t channel_values_count;
+    int32_t channel_values[16];
 } cybertx_UpdateAll;
 
 
@@ -28,16 +29,16 @@ extern "C" {
 
 /* Initializer values for message structs */
 #define cybertx_UpdateLine_init_default          {0, 0, 0}
-#define cybertx_UpdateAll_init_default           {0, {{NULL}, NULL}}
+#define cybertx_UpdateAll_init_default           {0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 #define cybertx_UpdateLine_init_zero             {0, 0, 0}
-#define cybertx_UpdateAll_init_zero              {0, {{NULL}, NULL}}
+#define cybertx_UpdateAll_init_zero              {0, 0, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define cybertx_UpdateLine_line_tag              1
 #define cybertx_UpdateLine_channel_tag           2
 #define cybertx_UpdateLine_channel_value_tag     3
 #define cybertx_UpdateAll_line_tag               1
-#define cybertx_UpdateAll_channel_values_tag     16
+#define cybertx_UpdateAll_channel_values_tag     2
 
 /* Struct field encoding specification for nanopb */
 #define cybertx_UpdateLine_FIELDLIST(X, a) \
@@ -49,8 +50,8 @@ X(a, STATIC,   SINGULAR, INT32,    channel_value,     3)
 
 #define cybertx_UpdateAll_FIELDLIST(X, a) \
 X(a, STATIC,   SINGULAR, INT32,    line,              1) \
-X(a, CALLBACK, REPEATED, INT32,    channel_values,   16)
-#define cybertx_UpdateAll_CALLBACK pb_default_field_callback
+X(a, STATIC,   REPEATED, INT32,    channel_values,    2)
+#define cybertx_UpdateAll_CALLBACK NULL
 #define cybertx_UpdateAll_DEFAULT NULL
 
 extern const pb_msgdesc_t cybertx_UpdateLine_msg;
@@ -61,8 +62,8 @@ extern const pb_msgdesc_t cybertx_UpdateAll_msg;
 #define cybertx_UpdateAll_fields &cybertx_UpdateAll_msg
 
 /* Maximum encoded size of messages (where known) */
-/* cybertx_UpdateAll_size depends on runtime parameters */
-#define CYBERTX_PPM_PB_H_MAX_SIZE                cybertx_UpdateLine_size
+#define CYBERTX_PPM_PB_H_MAX_SIZE                cybertx_UpdateAll_size
+#define cybertx_UpdateAll_size                   187
 #define cybertx_UpdateLine_size                  33
 
 #ifdef __cplusplus
