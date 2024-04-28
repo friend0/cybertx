@@ -655,17 +655,17 @@ public final class CyberTxProtos {
     int getLine();
 
     /**
-     * <code>repeated int32 channel_values = 16 [packed = true];</code>
+     * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
      * @return A list containing the channelValues.
      */
     java.util.List<java.lang.Integer> getChannelValuesList();
     /**
-     * <code>repeated int32 channel_values = 16 [packed = true];</code>
+     * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
      * @return The count of channelValues.
      */
     int getChannelValuesCount();
     /**
-     * <code>repeated int32 channel_values = 16 [packed = true];</code>
+     * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
      * @param index The index of the element to return.
      * @return The channelValues at the given index.
      */
@@ -723,7 +723,7 @@ public final class CyberTxProtos {
               line_ = input.readInt32();
               break;
             }
-            case 128: {
+            case 16: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 channelValues_ = newIntList();
                 mutable_bitField0_ |= 0x00000001;
@@ -731,7 +731,7 @@ public final class CyberTxProtos {
               channelValues_.addInt(input.readInt32());
               break;
             }
-            case 130: {
+            case 18: {
               int length = input.readRawVarint32();
               int limit = input.pushLimit(length);
               if (!((mutable_bitField0_ & 0x00000001) != 0) && input.getBytesUntilLimit() > 0) {
@@ -792,10 +792,10 @@ public final class CyberTxProtos {
       return line_;
     }
 
-    public static final int CHANNEL_VALUES_FIELD_NUMBER = 16;
+    public static final int CHANNEL_VALUES_FIELD_NUMBER = 2;
     private com.google.protobuf.Internal.IntList channelValues_;
     /**
-     * <code>repeated int32 channel_values = 16 [packed = true];</code>
+     * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
      * @return A list containing the channelValues.
      */
     @java.lang.Override
@@ -804,14 +804,14 @@ public final class CyberTxProtos {
       return channelValues_;
     }
     /**
-     * <code>repeated int32 channel_values = 16 [packed = true];</code>
+     * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
      * @return The count of channelValues.
      */
     public int getChannelValuesCount() {
       return channelValues_.size();
     }
     /**
-     * <code>repeated int32 channel_values = 16 [packed = true];</code>
+     * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
      * @param index The index of the element to return.
      * @return The channelValues at the given index.
      */
@@ -839,7 +839,7 @@ public final class CyberTxProtos {
         output.writeInt32(1, line_);
       }
       if (getChannelValuesList().size() > 0) {
-        output.writeUInt32NoTag(130);
+        output.writeUInt32NoTag(18);
         output.writeUInt32NoTag(channelValuesMemoizedSerializedSize);
       }
       for (int i = 0; i < channelValues_.size(); i++) {
@@ -866,7 +866,7 @@ public final class CyberTxProtos {
         }
         size += dataSize;
         if (!getChannelValuesList().isEmpty()) {
-          size += 2;
+          size += 1;
           size += com.google.protobuf.CodedOutputStream
               .computeInt32SizeNoTag(dataSize);
         }
@@ -1208,7 +1208,7 @@ public final class CyberTxProtos {
          }
       }
       /**
-       * <code>repeated int32 channel_values = 16 [packed = true];</code>
+       * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
        * @return A list containing the channelValues.
        */
       public java.util.List<java.lang.Integer>
@@ -1217,14 +1217,14 @@ public final class CyberTxProtos {
                  java.util.Collections.unmodifiableList(channelValues_) : channelValues_;
       }
       /**
-       * <code>repeated int32 channel_values = 16 [packed = true];</code>
+       * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
        * @return The count of channelValues.
        */
       public int getChannelValuesCount() {
         return channelValues_.size();
       }
       /**
-       * <code>repeated int32 channel_values = 16 [packed = true];</code>
+       * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
        * @param index The index of the element to return.
        * @return The channelValues at the given index.
        */
@@ -1232,7 +1232,7 @@ public final class CyberTxProtos {
         return channelValues_.getInt(index);
       }
       /**
-       * <code>repeated int32 channel_values = 16 [packed = true];</code>
+       * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
        * @param index The index to set the value at.
        * @param value The channelValues to set.
        * @return This builder for chaining.
@@ -1245,7 +1245,7 @@ public final class CyberTxProtos {
         return this;
       }
       /**
-       * <code>repeated int32 channel_values = 16 [packed = true];</code>
+       * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
        * @param value The channelValues to add.
        * @return This builder for chaining.
        */
@@ -1256,7 +1256,7 @@ public final class CyberTxProtos {
         return this;
       }
       /**
-       * <code>repeated int32 channel_values = 16 [packed = true];</code>
+       * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
        * @param values The channelValues to add.
        * @return This builder for chaining.
        */
@@ -1269,7 +1269,7 @@ public final class CyberTxProtos {
         return this;
       }
       /**
-       * <code>repeated int32 channel_values = 16 [packed = true];</code>
+       * <code>repeated int32 channel_values = 2 [(.nanopb) = { ... }</code>
        * @return This builder for chaining.
        */
       public Builder clearChannelValues() {
@@ -1350,15 +1350,17 @@ public final class CyberTxProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tppm.proto\022\007cybertx\"B\n\nUpdateLine\022\014\n\004li" +
-      "ne\030\001 \001(\005\022\017\n\007channel\030\002 \001(\005\022\025\n\rchannel_val" +
-      "ue\030\003 \001(\005\"5\n\tUpdateAll\022\014\n\004line\030\001 \001(\005\022\032\n\016c" +
-      "hannel_values\030\020 \003(\005B\002\020\001B#\n\022com.cybertx.p" +
-      "rotosB\rCyberTxProtosb\006proto3"
+      "\n\tppm.proto\022\007cybertx\032\014nanopb.proto\"B\n\nUp" +
+      "dateLine\022\014\n\004line\030\001 \001(\005\022\017\n\007channel\030\002 \001(\005\022" +
+      "\025\n\rchannel_value\030\003 \001(\005\"=\n\tUpdateAll\022\014\n\004l" +
+      "ine\030\001 \001(\005\022\"\n\016channel_values\030\002 \003(\005B\n\222?\002\020\020" +
+      "\222?\002x\001B#\n\022com.cybertx.protosB\rCyberTxProt" +
+      "osb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          Nanopb.getDescriptor(),
         });
     internal_static_cybertx_UpdateLine_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -1372,6 +1374,12 @@ public final class CyberTxProtos {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_cybertx_UpdateAll_descriptor,
         new java.lang.String[] { "Line", "ChannelValues", });
+    com.google.protobuf.ExtensionRegistry registry =
+        com.google.protobuf.ExtensionRegistry.newInstance();
+    registry.add(Nanopb.nanopb);
+    com.google.protobuf.Descriptors.FileDescriptor
+        .internalUpdateFileDescriptor(descriptor, registry);
+    Nanopb.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
