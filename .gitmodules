@@ -1,3 +1,0 @@
-[submodule "CyberTX/proto/CyberTX/include/nanopb"]
-	path = CyberTX/proto/CyberTX/include/nanopb
-	url = https://github.com/nanopb/nanopb.git
