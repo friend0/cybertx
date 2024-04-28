@@ -1,15 +1,18 @@
 syntax = "proto3";
 
-package cybertx.messages;
+package cybertx;
 
-message PPMUpdate {
+option java_package = "com.cybertx.protos";
+option java_outer_classname = "CyberTxProtos";
+
+message UpdateLine {
     int32 line = 1;
     int32 channel = 2;
     int32 channel_value = 3;
 }
 
 
-message PPMUpdateAll {
+message UpdateAll {
     int32 line = 1;
     repeated int32 channel_values = 16 [packed = true];
 }
