@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <PulsePosition.h>
-#include "message.pb.h"
+#include "ppm.pb.h"
 #include "state.h"
 #include <nanopbSerial.h>
 #include <pb.h>
@@ -20,7 +20,7 @@ size_t message_length;
 
 bool status;
 
-cybertx_messages_PPMUpdateAll ppm_message = cybertx_messages_PPMUpdateAll_init_zero;
+cybertx_UpdateAll ppm_message = cybertx_UpdateAll_init_zero;
 pb_istream_s pb_in = pb_istream_from_serial(Serial, 36);
 
 void setup()
@@ -59,7 +59,7 @@ void loop()
   /* Now we are ready to decode the message. */
   if (Serial.available() > 0)
   {
-    status = pb_decode(&pb_in, cybertx_messages_PPMUpdateAll_fields, &ppm_message);
+    status = pb_decode(&pb_in, cybertx_UpdateAll_fields, &ppm_message);
     if (status)
     {
       // TODO: figure out why readBytes on the stream doesn't clear buffer
@@ -87,5 +87,11 @@ void loop()
         Serial1.printf("Serial available: %d\r\n", Serial.available());
       }
     }
+    else {
+      if (Serial.peek() == '@') {
+        Serial1.println('!');
+      }
+    }
   }
+
 }

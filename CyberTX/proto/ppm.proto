@@ -3,8 +3,9 @@ syntax = "proto3";
 import "nanopb.proto";
 package cybertx;
 
+// option java_package = "fi.kapsi.koti.jpa.nanopb";
 option java_package = "com.cybertx.protos";
-option java_outer_classname = "CyberTxProtos";
+// option java_outer_classname = "CyberTxProtos";
 
 message UpdateLine {
     int32 line = 1;
