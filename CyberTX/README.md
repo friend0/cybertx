@@ -1,7 +1,8 @@
 # CyberTX
 
 CyberTX is a Serial to PPM converter. 
-PPM signals are a classic method for sending many channels of servo data to RC trainer ports, which are then transmitted as control signals over any number of radio implementations.
+PPM signals are a classic method for sending servo position data for many channels to the trainer port of an RC.
+These commands are then transmitted to the vehicle over the radio link used by the RC.
 Trainer ports make it possible for new pilots to learn to fly while an experienced pilot can take command at any time.
 
 The safety case for this architecture is obvious. In automatic control scenarios, we want to allow the same functionality so that a controller implementation can command a vehicle only while the pilot is not sending override commands. This paradigm enables much safer testing, and has been widely adpoted by numerous companies working to operationalize their autonomous vehicle fleets. 
