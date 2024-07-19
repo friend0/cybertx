@@ -6,7 +6,7 @@ package cybertx;
 // option java_package = "fi.kapsi.koti.jpa.nanopb";
 // option java_package = "com.cybertx.protos";
 // option java_outer_classname = "CyberTxProtos";
-option go_package = "github.com/friend0/cybertx/clients/go";
+option go_package = "github.com/friend0/cybertx/clients/gocybertx";
 
 message UpdateLine {
     int32 line = 1;
