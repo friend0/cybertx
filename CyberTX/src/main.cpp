@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <PulsePosition.h>
+#include "PulsePosition.h"
 #include "ppm.pb.h"
 #include <nanopbSerial.h>
 #include <pb.h>
@@ -15,8 +15,6 @@
 #define NUM_CHANNELS 16 // set the number of channels per PPM
 const int ppm_output_pins[8] = {5, 6, 9, 10, 20, 21, 22, 23};
 
-void ppmUpdate(uint16_t *ppm);
-
 // FSM States
 enum states
 {
@@ -31,7 +29,6 @@ enum states
   error,
 };
 
-uint16_t ppm[NUM_CHANNELS], routingInfo;
 uint8_t currentState, nextState, MSB, LSB, route, count, curChan;
 bool contact, newLineFlag;
 
@@ -39,15 +36,12 @@ unsigned long now, previous;
 const int interval_ms = 2000;
 volatile int ledState = LOW;
 
-PulsePositionOutput outputs[MAX_PPM];
-
-size_t message_length;
-
-bool proto_decode_status;
+// output channels are line outs to an RC
+// ppm channels are the values for a given line
+PulsePositionOutput output_channels[MAX_PPM];
+uint16_t ppm[NUM_CHANNELS];
 
 cybertx_UpdateAll ppm_message = cybertx_UpdateAll_init_zero;
-pb_istream_s pb_in;
-
 u_int32_t channel_values[NUM_CHANNELS];
 
 void setup()
@@ -61,10 +55,11 @@ void setup()
   for (int i = 0; i < MAX_PPM; i++)
   {
     Serial1.printf("Initializing PPM %d on pin %d\r\n", i, ppm_output_pins[i]);
-    outputs[i].begin(ppm_output_pins[i]);
+    output_channels[i] = PulsePositionOutput(FALLING);
+    output_channels[i].begin(ppm_output_pins[i]);
     for (int j = 0; j < 16; j++)
     {
-      outputs[i].write(j, 1500);
+      output_channels[i].write(j, 1500);
       ppm[i] = 0;
     }
   }
@@ -74,7 +69,7 @@ void setup()
 
   ppm_message.channel_values.funcs.decode = decode_channel_values;
   ppm_message.channel_values.arg = &channel_values;
-  // Serial.flush();
+  Serial.flush();
 }
 
 void runFSM();
@@ -84,7 +79,7 @@ void loop()
 
   while (!Serial.dtr() && !Serial.available())
   {
-    // TODO: put this into an ISR on Timer0, then jsut have this be an if/continue
+    // TODO: put this into an ISR on Timer0, then this will be an if/continue
     now = millis();
     if (now - previous >= interval_ms)
     {
@@ -95,15 +90,15 @@ void loop()
       curChan = 0;
       MSB = 0;
       LSB = 0;
-      Serial.flush();
     }
     continue;
   }
 
 #ifndef MATLAB_MODE
-  /* Now we are ready to decode the message. */
+  bool proto_decode_status;
   if (Serial.available() > 0)
   {
+    pb_istream_s pb_in;
     pb_in = pb_istream_from_serial(Serial, 36);
     proto_decode_status = pb_decode(&pb_in, cybertx_UpdateAll_fields, &ppm_message);
     if (proto_decode_status)
@@ -111,7 +106,7 @@ void loop()
       // Process PPM update
       for (std::size_t i = 0; i < NUM_CHANNELS; i++)
       {
-        outputs[0].write(i + 1, channel_values[i]);
+        output_channels[0].write(i + 1, channel_values[i]);
       }
 
       if (Serial1.availableForWrite())
@@ -121,7 +116,6 @@ void loop()
         {
           Serial1.printf("- channel_%d value: %d\r\n", i, channel_values[i]);
         }
-        Serial1.printf("Serial available: %d\r\n", Serial.available());
       }
     }
     else
@@ -239,7 +233,7 @@ void runFSM()
         for (int i = 0; i < 16; i++)
         {
           float ms = ppm[i];
-          outputs[0].write(i + 1, ms);
+          output_channels[0].write(i + 1, ms);
         }
       }
       else
