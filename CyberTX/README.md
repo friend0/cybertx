@@ -22,3 +22,20 @@ The main control flow is as follows:
 - While there is no serial connection, blink an LED on 2 second intervals
 - When a serial connection is present, check for available data. 
 - If data is available, see if it can be parsed into a PPMUpdateMessage. If it can, use that message to issue an update to the PPM outputs for the given channel. 
+
+## Compiling CyberTX Protobufs
+This repository is configured to use Platformio. If you have VSCode, and have installed PlatformIO, it should handle the compile step for 
+the necessary protobufs.
+
+Manual compilation can be done by using nanopb and it's provided generators.
+In the command below, we use the nanopb builtin `nanopb_generator` to build nanopb protobuffs to be used on the Teensy board.
+
+```
+python nanopb/generator/nanopb_generator.py
+```
+
+To rebuild protobufs for the Go and Python clients, run the following (paths here assume the $PWD is cybertx/cybertx)
+
+```
+protoc --plugin=protoc-gen-nanopb=proto\nanopb\generator\protoc-gen-nanopb --proto_path=proto\nanopb\generator\proto\ --proto_path=proto --python_out=examples\python --pyi_out=examples\python  --go_out=. --go_opt=module="github.com/friend0/cybertx" ppm.proto
+```

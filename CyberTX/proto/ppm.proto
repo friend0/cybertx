@@ -1,11 +1,12 @@
 syntax = "proto3";
 
-import "nanopb.proto";
+// import "nanopb.proto";
 package cybertx;
 
 // option java_package = "fi.kapsi.koti.jpa.nanopb";
-option java_package = "com.cybertx.protos";
+// option java_package = "com.cybertx.protos";
 // option java_outer_classname = "CyberTxProtos";
+option go_package = "github.com/friend0/cybertx/clients/go";
 
 message UpdateLine {
     int32 line = 1;
@@ -16,5 +17,5 @@ message UpdateLine {
 
 message UpdateAll {
     int32 line = 1;
-    repeated int32 channel_values = 2 [(nanopb).max_count = 16, (nanopb).fixed_length = true];;
+    repeated int32 channel_values = 2[packed=true];
 }
