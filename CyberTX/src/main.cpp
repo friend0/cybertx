@@ -14,6 +14,7 @@
 #define MAX_PPM 1
 #define NUM_CHANNELS 16 // set the number of channels per PPM
 const int ppm_output_pins[8] = {5, 6, 9, 10, 20, 21, 22, 23};
+int dynamic_channels;
 
 // FSM States
 enum states
@@ -169,14 +170,8 @@ void runFSM()
     }
     else if (currentState == startFrame3)
     {
-      if (Serial.read() == 0x03)
-      {
-        nextState = receiveMSB;
-      }
-      else
-      {
-        nextState = error;
-      }
+      dynamic_channels = Serial.read();
+      nextState = receiveMSB;
     }
     else if (currentState == receiveMSB)
     {
@@ -195,7 +190,7 @@ void runFSM()
       curChan++;
       MSB = 0x00;
       LSB = 0x00;
-      if (curChan >= NUM_CHANNELS)
+      if (curChan >= dynamic_channels)
       {
         nextState = endFrame1;
         curChan = 0;
@@ -205,7 +200,7 @@ void runFSM()
         if (Serial.peek() != 0x15)
         {
           nextState = error;
-        }
+        } // error condition
         else
         {
           nextState = receiveMSB;
@@ -230,7 +225,7 @@ void runFSM()
       if (Serial.read() == 0x12)
       {
         nextState = start_frame;
-        for (int i = 0; i < 16; i++)
+        for (int i = 0; i < dynamic_channels; i++)
         {
           float ms = ppm[i];
           output_channels[0].write(i + 1, ms);

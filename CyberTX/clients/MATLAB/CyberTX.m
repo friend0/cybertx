@@ -1,23 +1,24 @@
 classdef CyberTX < handle
     properties
         routing_bits
-        numChannels
+        num_channels
         port
     end
     
     methods
-        function obj = CyberTX(port, baud)
-            obj.numChannels = 16;
-            obj.routing_bits = log2(obj.numChannels);
+        % allow configurable number of channels
+        function obj = CyberTX(port, baud, num_channels)
+            obj.num_channels = num_channels;
+            obj.routing_bits = log2(obj.num_channels);
             obj.port = serialport(port, baud);
         end
         
         function writePPM(obj, ppmValues)
             write(obj.port, 0x01, 'uint8');
             write(obj.port, 0x02, 'uint8');
-            write(obj.port, 0x03, 'uint8');     %indicate start of frame (0b1111111111111111)
+            write(obj.port, dec2hex(obj.num_channels, 2), 'uint8');     %indicate start of frame (0b1111111111111111)
             
-            for i=1:obj.numChannels
+            for i=1:obj.num_channels
                 %should probably check if ppmValues are greater than the 11-bit number
                 %we are expecting, with a range of 2047
                 
@@ -31,7 +32,6 @@ classdef CyberTX < handle
                 MSB = cast(bitshift(MSB, -8), 'uint8');
                 LSB = cast(LSB, 'uint8');
                 
-                i
                 dec2bin(MSB, 8)
                 dec2bin(LSB, 8)
                 
