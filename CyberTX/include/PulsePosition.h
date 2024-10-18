@@ -35,7 +35,7 @@
 #include "PulsePositionIMXRT.h"
 #else 
 
-#define PULSEPOSITION_MAXCHANNELS 8
+#define PULSEPOSITION_MAXCHANNELS 4
 
 struct ftm_channel_struct {
 	uint32_t csc;
