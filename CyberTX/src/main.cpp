@@ -6,15 +6,17 @@
 
 // If we need to provide direct from MATLAB communication over serial without protobufs, uncomment the following line
 // rebuild and upload the code to the Teensy.
-// #define MATLAB_MODE
+#define MATLAB_MODE
 
 // Configuration
 // provide the number of PPMs to be used
 // as of 7/18/24 we are only using 1 PPM
-#define MAX_PPM 1
-#define NUM_CHANNELS 16 // set the number of channels per PPM
+#define NUM_LINES 1
+// todo: PPM library does not make this configurable out of the box
+// you will need to update the #define in PulsePosition.h until this is implemented as a new feature
+#define NUM_CHANNELS 16 // set the number of channels per line
 const int ppm_output_pins[8] = {5, 6, 9, 10, 20, 21, 22, 23};
-int dynamic_channels;
+u_int8_t dynamic_channels;
 
 // FSM States
 enum states
@@ -26,7 +28,6 @@ enum states
   receiveLSB,
   receiveNext,
   endFrame1,
-  endFrame2,
   error,
 };
 
@@ -39,7 +40,7 @@ volatile int ledState = LOW;
 
 // output channels are line outs to an RC
 // ppm channels are the values for a given line
-PulsePositionOutput output_channels[MAX_PPM];
+PulsePositionOutput output_channels[NUM_LINES];
 uint16_t ppm[NUM_CHANNELS];
 
 cybertx_UpdateAll ppm_message = cybertx_UpdateAll_init_zero;
@@ -53,12 +54,17 @@ void setup()
 
   // PPM Setup
   Serial1.begin(38400);
-  for (int i = 0; i < MAX_PPM; i++)
+  for (int i = 0; i < NUM_LINES; i++)
   {
+    #ifdef MATLAB_MODE
+      Serial1.printf("Operating in MATLAB Serial mode\r\n");
+    #else
+      Serial1.printf("Operating in Protobuf mode\r\n");
+    #endif
     Serial1.printf("Initializing PPM %d on pin %d\r\n", i, ppm_output_pins[i]);
     output_channels[i] = PulsePositionOutput(FALLING);
     output_channels[i].begin(ppm_output_pins[i]);
-    for (int j = 0; j < 16; j++)
+    for (int j = 0; j < NUM_CHANNELS; j++)
     {
       output_channels[i].write(j, 1500);
       ppm[i] = 0;
@@ -171,6 +177,7 @@ void runFSM()
     else if (currentState == startFrame3)
     {
       dynamic_channels = Serial.read();
+      Serial1.printf("Dynamic Channels: %d\r\n", dynamic_channels);
       nextState = receiveMSB;
     }
     else if (currentState == receiveMSB)
@@ -197,7 +204,8 @@ void runFSM()
       }
       else
       {
-        if (Serial.peek() != 0x15)
+        Serial1.printf("peek: %02X\r\n", Serial.peek());
+        if (Serial.peek() != 0xDD)
         {
           nextState = error;
         } // error condition
@@ -210,19 +218,7 @@ void runFSM()
     }
     else if (currentState == endFrame1)
     {
-      if (Serial.read() == 0x15)
-      {
-        nextState = endFrame2;
-      }
-      else
-      {
-        nextState = error;
-      } // error condition
-    }
-
-    else if (currentState == endFrame2)
-    {
-      if (Serial.read() == 0x12)
+      if (Serial.read() == 0xD4)
       {
         nextState = start_frame;
         for (int i = 0; i < dynamic_channels; i++)
@@ -231,7 +227,7 @@ void runFSM()
           output_channels[0].write(i + 1, ms);
         }
       }
-      else
+    else
       {
         // todo: error condition
         nextState = error;
